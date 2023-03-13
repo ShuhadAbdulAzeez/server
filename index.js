@@ -1,36 +1,28 @@
 const express = require("express"); // import express library
-const passport = require("passport"); // import passport library
-const GoogleStrategy = require("passport-google-oauth20").Strategy; // import passport google OAuth
+const mongoose = require("mongoose"); // import mongodb
+const cookieSession = require("cookie-session"); //import cookie
+const passport = require("passport")
 const key = require("./conifg/key"); //import keys from config and apply here
+require("./models/User"); // import users from models to the main project
+require("./services/passport"); // import service part to the main project
+
+
+mongoose.connect(key.mongoURI);
 
 const app = express(); //first app
 
-// The authentication part with google
-passport.use(
-  new GoogleStrategy( //google strategy intrernaly has some identifier that says "Hey my name is google if anyone ask me to authenticate with google use this strategy"
-    {
-      clientID: key.googleClientID,
-      clientSecret: key.googleClientSecret,
-      callbackURL: "/auth/google/callback", //adding a route handler to our express application to handle a user coming back to our application on these router
-    },
-    (accessToken, refreshToken, profile, done) => {
-      console.log('access token', accessToken);//accessToken :- It is the token that essentialy allows us to reach back to the google and say "Hey in the past this user said that we could read their profile or we could add or delete their emails inside email box" here the accesToken allows us to do that.
-      console.log('refresh token', refreshToken); // refreshToken :- It allows use to refresh accessToken because the accessToken will expires after some amount of time, So we can be given optionally a refreshToken that allows us to automatically update the accessToken and reaches the users account in some amount of time.
-      console.log('profile', profile); 
-    }
-  )
+//cookie
+app.use(
+    cookieSession({ //cookieSession is not realy inheritenty passing data to passport it's just proccessing incoming request populating that req.session property that shown in route handler in passport.js and passport access the data that exists on req.session
+        maxAge: 30 * 24 * 60 * 60 * 1000,  // it says "I want these cookie to last for 30 days before it automaticaly expires".
+        keys:[key.cookieKeys] // it allows us to specify multiple keys and if do randomly pick one to use to incript any givem cookie. and just allows to ride multiple cookie an in additional level of security.
+    })
 );
 
-// route handler 1
-app.get(
-  "/auth/google",
-  passport.authenticate("google", {
-    scope: ["profile", "email"],
-  })
-);
+app.use(passport.initialize());
+app.use(passport.session());
 
-// route handler 2
-app.get("/auth/google/callback", passport.authenticate("google"));
+require('./routes/authRoutes')(app); // These working when we require the auth routes file it returns a functions thats what we export from the routes files on require statement right here, so this function will return immediatly to the callback function with the app object.
 
 // app.get('/', (req, res) => {
 //     res.send({ hello: 'World' });
