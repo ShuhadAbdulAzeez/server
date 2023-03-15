@@ -1,7 +1,7 @@
 const passport = require("passport");
 
 module.exports = (app) => {
-  // These routes are here for handling OAuth process
+  // These routes are here for handling Oauth process
   // route handler 1
   app.get(
     "/auth/google",
