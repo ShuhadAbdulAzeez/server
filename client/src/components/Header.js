@@ -1,9 +1,22 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import "../app.css";
 
 
-export default class Header extends Component {
+class Header extends Component {
+  renderContent() {
+    switch (this.props.auth) {
+      case null:
+        return 'still processing';
+      case false:
+        return <li><a href="/auth/google">Login With Google</a></li>;
+      default:
+        return <li>Logout</li>;
+    }
+  }
+
   render() {
+    console.log(this.props)
     return (
       <nav className='navbar'>
         <div>
@@ -11,10 +24,16 @@ export default class Header extends Component {
         </div>
         <div className='child'>
             <ul>
-                <li><a href="">Login with google</a></li>
+                { this.renderContent() }
             </ul>
         </div>
       </nav>
     )
   }
 }
+
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps)(Header);

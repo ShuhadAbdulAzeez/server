@@ -27,6 +27,18 @@ html, body{
     list-style-type: none;
 }
 
+.child ul li {
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+}
+
+.child ul li:hover {
+    color: rgb(25, 8, 161); 
+    cursor: pointer;
+}
+
+
 .child ul li a{
     text-decoration: none;
     font-size: 20px;
