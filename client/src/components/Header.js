@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import "../app.css";
 
 
@@ -11,7 +12,7 @@ class Header extends Component {
       case false:
         return <li><a href="/auth/google">Login With Google</a></li>;
       default:
-        return <li>Logout</li>;
+        return <li><a href="/api/logout">Logout</a></li>;
     }
   }
 
@@ -20,7 +21,7 @@ class Header extends Component {
     return (
       <nav className='navbar'>
         <div>
-            <a href="" className='logo'>Decode Factory</a>
+            <Link to={ this.props.auth ? '/survays' : '/'} href="" className='logo'>Decode Factory</Link>
         </div>
         <div className='child'>
             <ul>
