@@ -5,8 +5,8 @@ import * as actions from '../actions';
 import "../app.css";
 
 import Header from "./Header";
+import Landing from "./Landing";
 
-const Landing = () => <h1>Landing</h1>;
 const Dashboard = () => <h1>Dashboard</h1>;
 const SurveysNew = () => <h1>Surveys</h1>;
 

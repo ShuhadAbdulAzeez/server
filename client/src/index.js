@@ -18,3 +18,6 @@ ReactDOM.render(
   document.querySelector("#root")
 );
 // So now we are showing the App component but we are also created the redux store at the very top level of our application and hooked that to the react side of the application by placing the Provider Tag. and Provider tag are here is the react component that's now how to rechanges from our redux store any time at redux store get some new state produced inside of it {} Provider will inform all the children components so essentialy everything in the app renders that some new state is available and will update all new components with state.
+
+// console.log("STRIPE KEY IS", process.env.REACT_APP_STRIPE_KEY);
+// console.log("Environment is", process.env.NODE_ENV);

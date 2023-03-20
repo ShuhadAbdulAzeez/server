@@ -23,6 +23,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./routes/authRoutes')(app); // These working when we require the auth routes file it returns a functions thats what we export from the routes files on require statement right here, so this function will return immediatly to the callback function with the app object.
+require('./routes/billingRoutes')(app);
 
 // app.get('/', (req, res) => {
 //     res.send({ hello: 'World' });
