@@ -1,7 +1,8 @@
 const express = require("express"); // import express library
 const mongoose = require("mongoose"); // import mongodb
 const cookieSession = require("cookie-session"); //import cookie
-const passport = require("passport")
+const passport = require("passport");
+const bodyParser = require('body-parser');
 const key = require("./conifg/key"); //import keys from config and apply here
 require("./models/User"); // import users from models to the main project
 require("./services/passport"); // import service part to the main project
@@ -11,6 +12,7 @@ mongoose.connect(key.mongoURI);
 
 const app = express(); //first app
 
+app.use(bodyParser.json()); //now any time a POST request or PUt request or anything else has a request body comes into our application to these middleware will parse the body then assign into the req.property body of incoming request object.
 //cookie
 app.use(
     cookieSession({ //cookieSession is not realy inheritenty passing data to passport it's just proccessing incoming request populating that req.session property that shown in route handler in passport.js and passport access the data that exists on req.session
