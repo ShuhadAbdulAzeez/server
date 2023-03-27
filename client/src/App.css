@@ -120,3 +120,26 @@ html, body{
     font-weight: bold;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+/* Dashboard */
+
+#fixed-button {
+    position: fixed;
+    bottom: 10px;
+    right: 50px;
+    background-color: #dc1a1a;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#fixed-button img{
+    width: 30px;
+}
+
+#fixed-button:hover {
+    background-color: #9a1414;
+    transition: 0.3s;
+}
