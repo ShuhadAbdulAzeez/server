@@ -29,11 +29,25 @@ require('./routes/authRoutes')(app); // These working when we require the auth r
 require('./routes/billingRoutes')(app);
 require('./routes/surveyRoutes')(app);
 
+if (process.env.NODE_ENV !== 'production') {
+    // express will serve up production assets
+    // like our main.js file or main.css file.!
+    app.use(express.static('client/build'));
+
+    // Express will serve up the index.html file
+    // if it not recognize the route
+    const path = require('path');
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    })
+}
+
 // app.get('/', (req, res) => {
 //     res.send({ hello: 'World' });
 // });
 
-app.listen(5000);
+const PORT = process.env.PORT || 5000;
+app.listen(PORT);
 
 // localhost:5000
 
