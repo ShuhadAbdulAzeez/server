@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import editImage from '../images/edit.png';
-import "../app.css";
+import "../App.css";
 
 const Dashboard = () => {
     return (
