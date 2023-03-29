@@ -186,16 +186,48 @@ body {
 }
 
 .survey-form button:hover {
-    background-color: #1c1b1b;
-    transition: .3s;
-    cursor: pointer;
+  background-color: #1c1b1b;
+  transition: 0.3s;
+  cursor: pointer;
 }
 
 .cancel-btn button {
-    background-color: #c81717;
-    margin-left: 350px;
+  background-color: #c81717;
+  margin-left: 350px;
 }
 
 .cancel-btn button:hover {
-    background-color: #940e0e;
+  background-color: #940e0e;
+}
+
+/* review page */
+
+.review-field {
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 500px;
+  padding: 20px;
+  margin-top: 100px;
+  text-align: center;
+}
+
+.review-cancel-btn {
+  background-color: #010101;
+  border: 0;
+  padding: 10px 20px;
+  margin-top: 20px;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.review-send-btn {
+  background-color: #1616a5;
+  border: 0;
+  padding: 10px 20px;
+  margin-top: 20px;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-left: 100px;
 }

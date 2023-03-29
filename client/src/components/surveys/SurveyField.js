@@ -6,7 +6,9 @@ export default ({ input, label, meta: { touched, error } }) => {
     <div className="survey-field">
       <label>{label}</label>
       <input {...input} />
+      <div style={{ color: 'red' }}>
       {touched && error}
+      </div>
     </div>
   );
 };
