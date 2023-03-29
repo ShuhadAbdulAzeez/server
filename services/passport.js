@@ -27,6 +27,7 @@ passport.use(
       clientID: key.googleClientID,
       clientSecret: key.googleClientSecret,
       callbackURL: "/auth/google/callback", //adding a route handler to our express application to handle a user coming back to our application on these router
+      proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
       const existingUser = await User.findOne({ googleId: profile.id });

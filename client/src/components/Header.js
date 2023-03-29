@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Payments from "./Payments";
-import "../app.css";
+import '../App.css';
 
 class Header extends Component {
   renderContent() {
     switch (this.props.auth) {
       case null:
-        return <li>Still Processing..</li>;
+        return;
       case false:
         return (
           <li>

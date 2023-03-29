@@ -5,6 +5,7 @@ const passport = require("passport");
 const bodyParser = require('body-parser');
 const key = require("./conifg/key"); //import keys from config and apply here
 require("./models/User"); // import users from models to the main project
+require("./models/Survey")
 require("./services/passport"); // import service part to the main project
 
 
@@ -26,12 +27,27 @@ app.use(passport.session());
 
 require('./routes/authRoutes')(app); // These working when we require the auth routes file it returns a functions thats what we export from the routes files on require statement right here, so this function will return immediatly to the callback function with the app object.
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
+
+if (process.env.NODE_ENV !== 'production') {
+    // express will serve up production assets
+    // like our main.js file or main.css file.!
+    app.use(express.static('client/build'));
+
+    // Express will serve up the index.html file
+    // if it not recognize the route
+    const path = require('path');
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    })
+}
 
 // app.get('/', (req, res) => {
 //     res.send({ hello: 'World' });
 // });
 
-app.listen(5000);
+const PORT = process.env.PORT || 5000;
+app.listen(PORT);
 
 // localhost:5000
 

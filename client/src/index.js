@@ -6,6 +6,8 @@ import reduxThunk from 'redux-thunk';
 
 import App from "./components/App";
 import reducers from "./reducers";
+// import axios from "axios";
+// window.axios = axios;
 
 const store = createStore(reducers, {}, applyMiddleware(reduxThunk)); // The entire purpose of redux-Thunk is to allow us to write action creaters that break the speceficly the requirment that we have to immediatlly return a action from every action creater that we create.
 
