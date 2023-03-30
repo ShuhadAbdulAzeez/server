@@ -1,6 +1,6 @@
-import { redirectDomain } from '../../conifg/key';
+const keys = require('../../conifg/key');
 
-export default (survey) => {
+module.exports = (survey) => {
   return `
     <html>
     <body>
@@ -9,10 +9,10 @@ export default (survey) => {
       <p>Please answer the following Question:</p>
       <p>${survey.body}</p>
       <div>
-        <a href="${redirectDomain}/api/surveys/thanks">Yes</a>
+        <a href="${keys.redirectDomain}/api/surveys/thanks">Yes</a>
       </div>
       <div>
-        <a href="${redirectDomain}/api/surveys/thanks">No</a>
+        <a href="${keys.redirectDomain}/api/surveys/thanks">No</a>
       </div>
      </div> 
     </body>
