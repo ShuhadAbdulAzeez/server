@@ -1,7 +1,7 @@
 const passport = require("passport"); // import passport library
 const GoogleStrategy = require("passport-google-oauth20").Strategy; // import passport google OAuth
 const mongoose = require("mongoose"); // import mongoose library
-const key = require("../conifg/key"); //import keys from config and apply here
+const keys = require("../conifg/key"); //import keys from config and apply here
 
 const User = mongoose.model("users");
 
@@ -24,8 +24,8 @@ passport.deserializeUser((id, done) => {
 passport.use(
   new GoogleStrategy( //google strategy intrernaly has some identifier that says "Hey my name is google if anyone ask me to authenticate with google use this strategy"
     {
-      clientID: key.googleClientID,
-      clientSecret: key.googleClientSecret,
+      clientID: keys.googleClientID,
+      clientSecret: keys.googleClientSecret,
       callbackURL: "/auth/google/callback", //adding a route handler to our express application to handle a user coming back to our application on these router
       proxy: true
     },

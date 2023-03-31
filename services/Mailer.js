@@ -1,13 +1,13 @@
 const { response } = require("express");
 const sendgrid = require("sendgrid");
 const helper = sendgrid.mail;
-const key = require("../conifg/key");
+const keys = require("../conifg/key");
 
 class Mailer extends helper.Mail {
   constructor({ subject, recipients }, content) {
     super();
 
-    this.sgApi = sendgrid(key.sendGridKey);
+    this.sgApi = sendgrid(keys.sendGridKey);
     this.from_email = new helper.Email("shuhad12345@gmail.com");
     this.subject = subject;
     this.body = new helper.Content("text/html", content);

@@ -1,6 +1,6 @@
 //this file handle all the different billing related handlers inside our application.
-const key = require("../conifg/key");
-const stripe = require("stripe")(key.stripeSecretKey);
+const keys = require("../conifg/key");
+const stripe = require("stripe")(keys.stripeSecretKey);
 const requireLogin = require('../middleware/requireLogin');
 
 module.exports = (app) => {

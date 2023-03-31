@@ -231,3 +231,41 @@ body {
   cursor: pointer;
   margin-left: 100px;
 }
+
+/* Surveycard */
+
+/* .cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+} */
+
+.card {
+  background-color: #fff;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.card h1 {
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: #777;
+  font-size: 16px;
+  line-height: 1.5;
+  border-bottom: 1px solid black;
+}
+
+.card a {
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  margin-top: 10px;
+  margin-left: 10px;
+}

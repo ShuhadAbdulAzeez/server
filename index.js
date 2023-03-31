@@ -3,13 +3,13 @@ const mongoose = require("mongoose"); // import mongodb
 const cookieSession = require("cookie-session"); //import cookie
 const passport = require("passport");
 const bodyParser = require('body-parser');
-const key = require("./conifg/key"); //import keys from config and apply here
+const keys = require("./conifg/key"); //import keys from config and apply here
 require("./models/User"); // import users from models to the main project
 require("./models/Survey")
 require("./services/passport"); // import service part to the main project
 
-
-mongoose.connect(key.mongoURI);
+mongoose.Promise = global.Promise;
+mongoose.connect(keys.mongoURI);
 
 const app = express(); //first app
 
@@ -18,7 +18,7 @@ app.use(bodyParser.json()); //now any time a POST request or PUt request or anyt
 app.use(
     cookieSession({ //cookieSession is not realy inheritenty passing data to passport it's just proccessing incoming request populating that req.session property that shown in route handler in passport.js and passport access the data that exists on req.session
         maxAge: 30 * 24 * 60 * 60 * 1000,  // it says "I want these cookie to last for 30 days before it automaticaly expires".
-        keys:[key.cookieKeys] // it allows us to specify multiple keys and if do randomly pick one to use to incript any givem cookie. and just allows to ride multiple cookie an in additional level of security.
+        keys:[keys.cookieKeys] // it allows us to specify multiple keys and if do randomly pick one to use to incript any givem cookie. and just allows to ride multiple cookie an in additional level of security.
     })
 );
 
