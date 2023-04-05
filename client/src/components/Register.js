@@ -6,52 +6,41 @@ export default class Register extends Component {
   state = {
     email: "",
     password: "",
-    first_name: "",
-    last_name: "",
+    username: "",
+    confirmPassword: "",
     success: false,
     error: false,
   };
 
   onSignup = (e) => {
-    state = {
-      email: "",
-      password: "",
-      username: "",
-      confirmPassword: "",
-      success: false,
-      error: false,
-    };
+    e.preventDefault();
 
-    onSignup = (e) => {
-      e.preventDefault();
+    const { email, password, username, confirmPassword } = this.state;
 
-      const { email, password, username, confirmPassword } = this.state;
-
-      axios({
-        url: "/auth/register",
-        method: "POST",
-        data: { email, password, username, confirmPassword },
+    axios({
+      url: "/auth/register",
+      method: "POST",
+      data: { email, password, username, confirmPassword },
+    })
+      .then((res) => {
+        window.localStorage.setItem("isAuthenticated", true);
+        if (res.status === 200) {
+          this.setState({ success: true, error: false });
+          this.props.history.push("/");
+        }
       })
-        .then((res) => {
-          window.localStorage.setItem("isAuthenticated", true);
-          if (res.status === 200) {
-            this.setState({ success: true, error: false });
-            this.props.history.push("/login");
-          }
-        })
-        .catch(({ response }) => {
-          this.setState({ error: response.data.message, success: false });
-        });
-    };
-
-    onChange = (e) => {
-      const { name, value } = e.target;
-      this.setState({
-        [name]: value,
-        error: false,
-        success: false,
+      .catch(({ response }) => {
+        this.setState({ error: response.data.message, success: false });
       });
-    };
+  };
+
+  onChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value,
+      error: false,
+      success: false,
+    });
   };
 
   render() {
