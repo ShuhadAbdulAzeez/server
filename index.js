@@ -3,13 +3,18 @@ const mongoose = require("mongoose"); // import mongodb
 const cookieSession = require("cookie-session"); //import cookie
 const passport = require("passport");
 const bodyParser = require('body-parser');
+const logger = require("morgan");
+const cors = require("cors");
+const session = require("express-session");
 const keys = require("./conifg/key"); //import keys from config and apply here
 require("./models/User"); // import users from models to the main project
-require("./models/Survey")
+require("./models/Survey");
+require("./models/UserInfo");
 require("./services/passport"); // import service part to the main project
+require("./Auth")
 
 mongoose.Promise = global.Promise;
-mongoose.connect(keys.mongoURI);
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
 
 const app = express(); //first app
 
@@ -24,6 +29,21 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(
+    session({
+      resave: false,
+      saveUninitialized: false, 
+      secret: process.env.mongoDB_secret,
+    })
+  );
+  app.use(logger("dev"));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
+  
+  app.use(cors());
+  
+  const Authentication = require("./routes/Auth");
+  app.use("/auth", Authentication);
 
 require('./routes/authRoutes')(app); // These working when we require the auth routes file it returns a functions thats what we export from the routes files on require statement right here, so this function will return immediatly to the callback function with the app object.
 require('./routes/billingRoutes')(app);

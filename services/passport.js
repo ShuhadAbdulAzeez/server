@@ -46,7 +46,5 @@ passport.use(
   )
 );
 
-
-
 // synchronous programming is suitable for simple applications with limited functionality, 
 // while asynchronous programming is suitable for more complex applications that require better performance and responsiveness.
