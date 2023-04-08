@@ -26,7 +26,7 @@ export default class Register extends Component {
         window.localStorage.setItem("isAuthenticated", true);
         if (res.status === 200) {
           this.setState({ success: true, error: false });
-          this.props.history.push("/");
+          this.props.history.push("/login");
         }
       })
       .catch(({ response }) => {
