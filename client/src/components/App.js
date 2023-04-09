@@ -10,17 +10,22 @@ import Dashboard from "./Dashboard";
 import surveyNew from "./surveys/SurveyNew";
 import Login from "./Login";
 import Register from "./Register";
+
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
   }
+
+  handleLogout = () => {
+    this.props.logout();
+  };
 
   render() {
     return (
       <div>
         <BrowserRouter>
           <div className="container">
-          {!(window.location.pathname === "/login" || window.location.pathname === "/signup") && <Header />}
+            {!(window.location.pathname === "/login" || window.location.pathname === "/register") && <Header onLogout={this.handleLogout}/>}
             <Route exact path="/" component={Landing} />
             <Route exact path="/surveys" component={Dashboard} />
             <Route path="/surveys/new" component={surveyNew} />

@@ -21,13 +21,14 @@ export default class Login extends Component {
         window.localStorage.setItem("isAuthenticated", true);
         if (res.status === 200) {
           this.setState({ success: true, error: false });
-          this.props.history.push("/");
+          this.props.history.push("/surveys");
         }
       })
       .catch(({ response }) => {
         this.setState({ error: response.data.message, success: false });
       });
   };
+  
 
   onChange = (e) => {
     const { name, value } = e.target;
@@ -82,3 +83,4 @@ export default class Login extends Component {
     );
   }
 }
+

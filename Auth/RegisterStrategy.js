@@ -8,11 +8,7 @@ const SignupStrategy = new Strategy(
   function (req, email, password, done) {
     User.findOne({ email })
       .lean()
-      .exec((err, user) => {
-        if (err) {
-          return done(err, null);
-        }
-
+      .then((user) => {
         if (!user) {
           const encryptedPassword = bcrypt.hashSync(password, salt);
           const { username, confirmPassword } = req.body;
@@ -27,17 +23,16 @@ const SignupStrategy = new Strategy(
             password: encryptedPassword,
           });
 
-          newUser.save((error, inserted) => {
-            if (error) {
-              return done(error, null);
-            }
-
-            return done(null, inserted);
-          });
+          return newUser.save();
+        } else {
+          return Promise.reject("User already exists. Please login!");
         }
-        if (user) {
-          return done("User already exists. Please login!", null);
-        }
+      })
+      .then((inserted) => {
+        return done(null, inserted);
+      })
+      .catch((error) => {
+        return done(error, null);
       });
   }
 );

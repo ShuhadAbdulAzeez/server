@@ -2,29 +2,32 @@ const Strategy = require("passport-local").Strategy;
 const User = require("../models/UserInfo");
 const bcrypt = require("bcryptjs");
 
-const LoginStrategy = new Strategy(
-  { usernameField: "email" },
-  function (email, password, done) {
-    User.findOne({ email })
-      .lean()
-      .exec((err, user) => {
-        if (err) {
-          return done(err, null);
-        }
+const LoginStrategy = new Strategy({ usernameField: "email" }, function (
+  email,
+  password,
+  done
+) {
+  User.findOne({ email })
+    .lean()
+    .then((user) => {
+      if (!user) {
+        return Promise.reject("No user found");
+      }
 
-        if (!user) {
-          return done("No user found", null);
-        }
+      const isPasswordValid = bcrypt.compareSync(password, user.password);
 
-        const isPasswordValid = bcrypt.compareSync(password, user.password);
+      if (!isPasswordValid) {
+        return Promise.reject("Email or Password not valid");
+      }
 
-        if (!isPasswordValid) {
-          return done("Email or Password not valid", null);
-        }
-
-        return done(null, user);
-      });
-  }
-);
+      return Promise.resolve(user);
+    })
+    .then((user) => {
+      return done(null, user);
+    })
+    .catch((error) => {
+      return done(error, null);
+    });
+});
 
 module.exports = LoginStrategy;

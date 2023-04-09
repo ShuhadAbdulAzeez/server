@@ -28,4 +28,10 @@ login.post("/login", function (req, res) {
   })(req, res);
 });
 
+//Logout endpoint
+login.get("/api/logout", (req, res) => {
+  req.logout(); // This function is provided by passport.js to remove the user session.
+  res.redirect("/"); // Redirect to homepage or any other desired page after logout.
+});
+
 module.exports = login;
