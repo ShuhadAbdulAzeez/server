@@ -14,7 +14,7 @@ const surveySchema = new Schema({
   no: { type: Number, default: 0 },
   //relationship field
   // With these property we add the idea to surveySchema that every survey going to belong to a very particular user. 
-  _user: { type: Schema.Types.ObjectId, ref: 'User' },
+  _user: { type: Schema.Types.ObjectId, ref: 'UserInfo' },
   //additional field.
   dateSent: Date,
   lastResponded: Date

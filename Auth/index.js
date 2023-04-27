@@ -3,14 +3,12 @@ const User = require("../models/UserInfo");
 
 //Serialize user with passport using hes/her email
 passport.serializeUser(function (email, done) {
-  done(null, email.id);
+  done(null, email);
 });
 
 //Deserialize user with passport using hes/her email
-passport.deserializeUser((id, done) => {
-  User.findById(id).then((email) => {
-    done(null, email);
-  });
+passport.deserializeUser(function (email, done) {
+  done(null, email);
 });
 
 //Requiring Login - Register strategy files

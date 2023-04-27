@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import googleImage from "../images/google.png";
 import "../App.css";
+import { connect } from "react-redux";
+import * as actions from '../actions';
+ 
 
-export default class Login extends Component {
+class Login extends Component {
   state = { username: "", success: false, error: false };
 
   onLogin = (e) => {
@@ -17,13 +20,14 @@ export default class Login extends Component {
       method: "POST",
       data: { email, password },
     })
-      .then((res) => {
-        window.localStorage.setItem("isAuthenticated", true);
-        if (res.status === 200) {
-          this.setState({ success: true, error: false });
-          this.props.history.push("/surveys");
-        }
-      })
+    .then((res) => {
+      window.localStorage.setItem("isAuthenticated", res.data.isAuthenticated);
+      window.localStorage.setItem("username", res.data.username);
+      if (res.status === 200) {
+        this.setState({ success: true, error: false });
+        this.props.history.push("/surveys");
+      }
+    })
       .catch(({ response }) => {
         this.setState({ error: response.data.message, success: false });
       });
@@ -73,7 +77,7 @@ export default class Login extends Component {
             </div>
             <div>
               <p>
-                Don’t have an account? Sign up?{" "}
+                Don’t have an account?{" "}
                 <Link to={"/register"}>Register</Link>
               </p>
             </div>
@@ -84,3 +88,4 @@ export default class Login extends Component {
   }
 }
 
+export default connect(null, actions) (Login);

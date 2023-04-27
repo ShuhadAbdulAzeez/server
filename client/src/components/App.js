@@ -16,16 +16,12 @@ class App extends Component {
     this.props.fetchUser();
   }
 
-  handleLogout = () => {
-    this.props.logout();
-  };
-
   render() {
     return (
       <div>
         <BrowserRouter>
           <div className="container">
-            {!(window.location.pathname === "/login" || window.location.pathname === "/register") && <Header onLogout={this.handleLogout}/>}
+            {!(window.location.pathname === "/login" || window.location.pathname === "/register") && <Header />}
             <Route exact path="/" component={Landing} />
             <Route exact path="/surveys" component={Dashboard} />
             <Route path="/surveys/new" component={surveyNew} />
